@@ -1,0 +1,37 @@
+<?php
+
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateManagersTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('managers', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('employee_code',5);
+            $table->foreign('employee_code')->references('user_code')->on('users')->onDelete('cascade');
+            $table->string('manager_code',5);
+            $table->foreign('manager_code')->references('user_code')->on('users')->onDelete('cascade');
+            $table->date('from_date');
+            $table->date('to_date')->nullable();
+            $table->timestamps();
+            
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('managers');
+    }
+}
